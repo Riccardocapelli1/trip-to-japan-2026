@@ -1,6 +1,9 @@
 # Japan Trip 2026 - Travel Planner App
 
 A premium, minimalist web application designed to showcase a 15-day trip to Japan (October 31 - November 15, 2026). The app features an interactive itinerary, curated local suggestions, and a discovery engine for alternative destinations.
+<br>
+**🌐 Live Site: [riccardocapelli1.github.io/trip-to-japan-2026/](https://riccardocapelli1.github.io/trip-to-japan-2026/)**
+
 
 ## 🚀 Overview
 This repository contains the source code and documentation for the "Japón 2026" web app. The design is inspired by **Shadcn UI**, prioritizing clean aesthetics, modern typography, and a "Zinc" dark mode palette.
