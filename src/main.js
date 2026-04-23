@@ -9,10 +9,10 @@ function init() {
   renderMap();
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
+try {
   init();
+} catch (e) {
+  document.body.innerHTML += `<div style="color:red; z-index:9999; position:fixed; top:0; left:0; background:black; padding:20px;">ERROR: ${e.message}</div>`;
 }
 
 function renderTimeline() {
@@ -107,11 +107,10 @@ function renderMap() {
 
     const map = L.map('itinerary-map').setView([35.6762, 139.6503], 5);
 
-    // Dark theme map tiles
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 20
+    // OpenStreetMap map tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19
     }).addTo(map);
 
     const latlngs = [];
@@ -131,7 +130,7 @@ function renderMap() {
             weight: 2,
             opacity: 1,
             fillOpacity: 0.8
-          }).addTo(map).bindPopup(\`<b>\${day.baseCity}</b>\`);
+          }).addTo(map).bindPopup(`<b>${day.baseCity}</b>`);
         }
       }
     });
