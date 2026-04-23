@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preparando el viaje...</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/style.css" />
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      background-image: url('assets/hero.png');
+      background-size: cover;
+      background-position: center;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: hsl(var(--background)/0.7);
+      backdrop-filter: blur(10px);
+    }
+    .redirect-card {
+      position: relative;
+      z-index: 10;
+      padding: 3rem;
+      max-width: 500px;
+      animation: fadeIn 1s ease-out;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid hsl(var(--border));
+      border-top-color: hsl(var(--primary));
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 2rem auto;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      color: hsl(var(--muted-foreground));
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="redirect-card glass-panel">
+    <div class="spinner"></div>
+    <h1>Preparando tu viaje a <br/><span id="place-name" style="color: hsl(var(--primary));">este mágico lugar</span></h1>
+    <p>Redirigiendo a la información...</p>
+    <p style="font-size: 0.8rem; margin-top: 2rem;">Si no eres redirigido automáticamente, <a id="manual-link" href="#" style="color: hsl(var(--primary));">haz clic aquí</a>.</p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const url = params.get('url');
+      const name = params.get('name');
+
+      if (name) {
+        document.getElementById('place-name').textContent = name;
+      }
+
+      if (url) {
+        document.getElementById('manual-link').href = url;
+        setTimeout(() => {
+          window.location.href = url;
+        }, 2500); // Redirect after 2.5 seconds for a nice effect
+      } else {
+        document.querySelector('h1').textContent = "Error: Enlace no encontrado";
+        document.querySelector('.spinner').style.display = 'none';
+        document.querySelector('p').textContent = "Vuelve al itinerario e inténtalo de nuevo.";
+      }
+    });
+  </script>
+</body>
+</html>

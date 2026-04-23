@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Japón 2026 | Aventura de Dos</title>
+  <meta name="description" content="Nuestra aventura en Japón: un itinerario premium, minimalista y cuidadosamente diseñado para disfrutar cada momento juntos." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="src/style.css" />
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <header class="hero" id="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Japón 2026</h1>
+      <p class="hero-subtitle">Una aventura de dos.</p>
+      <div class="hero-dates">31 Oct — 15 Nov</div>
+      <a href="#timeline-section" class="scroll-indicator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Manifesto Preview Section -->
+  <section class="manifesto-preview glass-panel">
+    <div class="container text-center">
+      <h2 class="section-title">Nuestra Filosofía</h2>
+      <p class="manifesto-text">
+        El mejor viaje no se define por los destinos, sino por los momentos compartidos. <br/>
+        Elegimos estar presentes y vivir el <em>Mono no Aware</em> juntos.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Itinerary Timeline Section -->
+  <main class="container">
+    <section id="timeline-section" class="timeline-section">
+      <h2 class="section-title text-center">Itinerario</h2>
+      
+      <div class="timeline" id="timeline-container">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- Destination Discovery Engine -->
+    <section id="discovery-section" class="discovery-section glass-panel">
+      <h2 class="section-title text-center">Descubridor de Destinos</h2>
+      <p class="text-center text-secondary mb-6">Busca ideas o alternativas (ej. Kioto, Naturaleza, Comida, Onsen)</p>
+      
+      <div class="search-container">
+        <input type="text" id="discovery-input" class="discovery-input" placeholder="¿Qué te gustaría explorar?" autocomplete="off" />
+        <button id="discovery-btn" class="btn btn-primary">Sugerir</button>
+      </div>
+
+      <div id="discovery-result" class="discovery-result hidden">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container text-center">
+      <p>Creado para nuestra aventura en Japón. ❤️</p>
+    </div>
+  </footer>
+
+  <!-- Modal for Day Details -->
+  <div id="day-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content glass-panel">
+      <button id="modal-close" class="modal-close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+      <div id="modal-body">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
