@@ -1,10 +1,12 @@
 import { itinerary, destinationsDict } from './data.js';
 
 function init() {
+  renderDashboard();
   renderTimeline();
   setupScrollReveal();
   setupModal();
   setupDiscovery();
+  renderMap();
 }
 
 if (document.readyState === 'loading') {
@@ -26,6 +28,13 @@ function renderTimeline() {
     const options = { day: 'numeric', month: 'short', weekday: 'short' };
     const dateFormatted = dateObj.toLocaleDateString('es-ES', options);
 
+    const effortMapping = {
+      'baja': { rating: '2/5', time: '~4 horas' },
+      'media': { rating: '3.5/5', time: '~6-7 horas' },
+      'alta': { rating: '5/5', time: '8+ horas' }
+    };
+    const metrics = effortMapping[intensityClass] || { rating: '?', time: '?' };
+
     return `
       <div class="timeline-item">
         <div class="timeline-dot"></div>
@@ -39,12 +48,107 @@ function renderTimeline() {
           <p class="text-secondary" style="margin-bottom: 0.5rem; font-size: 0.9rem;">${dayData.plan}</p>
           <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
             <span class="card-intensity ${intensityClass}">Intensidad: ${dayData.intensity}</span>
+            <span class="card-intensity" style="border-color: hsl(var(--border)); color: hsl(var(--muted-foreground));">Esfuerzo: ${metrics.rating}</span>
+            <span class="card-intensity" style="border-color: hsl(var(--border)); color: hsl(var(--muted-foreground));">⏳ ${metrics.time}</span>
             ${dayData.note ? `<span class="note-badge">✨ ${dayData.note}</span>` : ''}
           </div>
         </div>
       </div>
     `;
   }).join('');
+}
+
+function renderDashboard() {
+  const statsContainer = document.getElementById('dashboard-stats');
+  if (!statsContainer) return;
+
+  const totalDays = itinerary.length;
+  const uniqueCities = new Set(itinerary.map(d => d.baseCity).filter(c => c !== 'Flight')).size;
+  const mustSeeCount = itinerary.reduce((acc, curr) => acc + (curr.mustSee ? curr.mustSee.length : 0), 0);
+  const highIntensityDays = itinerary.filter(d => d.intensity.toLowerCase() === 'alta').length;
+
+  statsContainer.innerHTML = `
+    <div class="stat-card">
+      <div class="stat-value">${totalDays}</div>
+      <div class="stat-label">Días de Viaje</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">${uniqueCities}</div>
+      <div class="stat-label">Ciudades Base</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">${mustSeeCount}</div>
+      <div class="stat-label">Lugares Clave</div>
+    </div>
+    <div class="stat-card" style="border-color: hsl(var(--primary) / 0.5);">
+      <div class="stat-value">${highIntensityDays}</div>
+      <div class="stat-label">Días de Alta Intensidad</div>
+    </div>
+  `;
+}
+
+function renderMap() {
+  const mapContainer = document.getElementById('itinerary-map');
+  if (!mapContainer || !window.L) return;
+
+  // Wait a tick to ensure container is fully sized
+  setTimeout(() => {
+    // City coordinates approximation
+    const coords = {
+      'Tokyo': [35.6762, 139.6503],
+      'Takayama': [36.1461, 137.2523],
+      'Osaka': [34.6937, 135.5023],
+      'Koyasan': [34.2155, 135.5843],
+      'Kinosaki': [35.6256, 134.8146],
+      'Hikone': [35.2744, 136.2597],
+      'Uji': [34.8906, 135.8000],
+      'Nara': [34.6851, 135.8048]
+    };
+
+    const map = L.map('itinerary-map').setView([35.6762, 139.6503], 5);
+
+    // Dark theme map tiles
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 20
+    }).addTo(map);
+
+    const latlngs = [];
+    const addedMarkers = new Set();
+
+    itinerary.forEach(day => {
+      if (day.baseCity === 'Flight') return;
+      const cityCoords = coords[day.baseCity];
+      if (cityCoords) {
+        latlngs.push(cityCoords);
+        if (!addedMarkers.has(day.baseCity)) {
+          addedMarkers.add(day.baseCity);
+          L.circleMarker(cityCoords, {
+            radius: 8,
+            fillColor: '#ea580c', // primary orange-600
+            color: '#fff',
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 0.8
+          }).addTo(map).bindPopup(\`<b>\${day.baseCity}</b>\`);
+        }
+      }
+    });
+
+    if (latlngs.length > 0) {
+      // Draw path
+      L.polyline(latlngs, {
+        color: '#ea580c', 
+        weight: 3, 
+        opacity: 0.7, 
+        dashArray: '5, 10'
+      }).addTo(map);
+      
+      // Fit bounds to show the whole route
+      map.fitBounds(L.latLngBounds(latlngs), { padding: [50, 50] });
+    }
+  }, 100);
 }
 
 function setupScrollReveal() {
