@@ -1,11 +1,17 @@
 import { itinerary, destinationsDict } from './data.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+function init() {
   renderTimeline();
   setupScrollReveal();
   setupModal();
   setupDiscovery();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 
 function renderTimeline() {
   const container = document.getElementById('timeline-container');
