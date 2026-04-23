@@ -677,3 +677,66 @@ body {
 .leaflet-control-attribution {
   filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
 }
+
+/* Suggestions Section */
+.suggestions-section {
+  padding: 3rem 2rem;
+  margin: 4rem auto;
+}
+
+.suggestions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.suggestion-card {
+  background: hsl(var(--secondary) / 0.3);
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.suggestion-card:hover {
+  transform: translateY(-5px);
+  border-color: hsl(var(--primary) / 0.5);
+  background: hsl(var(--secondary) / 0.5);
+}
+
+.suggestion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.suggestion-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.poi-tag {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* Category Colors */
+.tag-hotels { background: #3b82f6; color: white; }
+.tag-restaurants { background: #ef4444; color: white; }
+.tag-museums { background: #10b981; color: white; }
+.tag-bars { background: #f59e0b; color: white; }
+.tag-shops { background: #8b5cf6; color: white; }
+.tag-others { background: #6b7280; color: white; }
+
+.interest-badge {
+  font-size: 0.75rem;
+  color: hsl(var(--primary));
+  font-weight: 600;
+}

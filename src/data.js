@@ -273,3 +273,34 @@ export const destinationsDict = [
     alternative: 'Kobe: Zona del puerto (Harborland) y boutiques elegantes en Sannomiya.'
   }
 ];
+
+export const pointsOfInterest = [
+  // TOKYO
+  { name: 'Park Hyatt Tokyo', category: 'hotels', coords: [35.6856, 139.6910], description: 'Iconic hotel with stunning views.', tag: 'Stay' },
+  { name: 'Nissan Crossing', category: 'others', coords: [35.6715, 139.7651], description: 'Latest car tech and concept cars.', tag: 'Cars' },
+  { name: 'Akihabara Radio Kaikan', category: 'shops', coords: [35.6983, 139.7715], description: 'Electronics, tech, and hobby paradise.', tag: 'Tech' },
+  { name: 'GiGO Akihabara 3', category: 'others', coords: [35.6987, 139.7711], description: 'Classic arcade and gaming.', tag: 'Arcade' },
+  { name: 'Nintendo TOKYO', category: 'shops', coords: [35.6618, 139.6981], description: 'Official Nintendo store in Shibuya PARCO.', tag: 'Nintendo' },
+  { name: 'teamLab Planets', category: 'museums', coords: [35.6491, 139.7912], description: 'Immersive LED and digital art museum.', tag: 'LED/Tech' },
+  { name: 'Dover Street Market Ginza', category: 'shops', coords: [35.6695, 139.7640], description: 'Cutting-edge high fashion.', tag: 'Fashion' },
+  { name: 'Sukiyabashi Jiro', category: 'restaurants', coords: [35.6720, 139.7628], description: 'World-famous sushi experience.', tag: 'Food' },
+  { name: 'Starbucks Reserve Roastery', category: 'bars', coords: [35.6490, 139.6917], description: 'Stunning coffee and architecture by the river.', tag: 'Architecture' },
+
+  // OSAKA
+  { name: 'W Osaka', category: 'hotels', coords: [34.6766, 135.5000], description: 'Luxury hotel with bold design.', tag: 'Stay' },
+  { name: 'Super Nintendo World', category: 'museums', coords: [34.6654, 135.4323], description: 'Immersive Nintendo theme park.', tag: 'Nintendo' },
+  { name: 'Den Den Town', category: 'shops', coords: [34.6601, 135.5058], description: 'Osaka\'s electronics and gaming district.', tag: 'Tech/Arcade' },
+  { name: 'Glico Man Neon Sign', category: 'others', coords: [34.6691, 135.5013], description: 'Iconic LED landmark in Dotonbori.', tag: 'LED' },
+  { name: 'Mizuno Okonomiyaki', category: 'restaurants', coords: [34.6687, 135.5018], description: 'Classic Osaka street food.', tag: 'Food' },
+
+  // UJI
+  { name: 'Nintendo Museum', category: 'museums', coords: [34.8911, 135.7986], description: 'Official museum of Nintendo history.', tag: 'Nintendo' },
+
+  // TAKAYAMA
+  { name: 'Hida Beef Center', category: 'restaurants', coords: [36.1425, 137.2514], description: 'Best local Hida beef experience.', tag: 'Food' },
+  { name: 'Old Town Sanmachi', category: 'others', coords: [36.1396, 137.2581], description: 'Beautiful preserved traditional nature.', tag: 'Nature/Tradition' },
+
+  // KYOTO
+  { name: 'Arashiyama Bamboo Grove', category: 'others', coords: [35.0158, 135.6720], description: 'Stunning nature and photography.', tag: 'Nature' },
+  { name: 'Kyoto Imperial Palace', category: 'museums', coords: [35.0254, 135.7621], description: 'Historic residence of the Emperor.', tag: 'History' }
+];

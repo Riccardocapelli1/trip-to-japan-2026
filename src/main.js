@@ -1,4 +1,4 @@
-import { itinerary, destinationsDict } from './data.js';
+import { itinerary, destinationsDict, pointsOfInterest } from './data.js';
 
 function init() {
   renderDashboard();
@@ -7,6 +7,7 @@ function init() {
   setupModal();
   setupDiscovery();
   renderMap();
+  renderSuggestionsList();
 }
 
 try {
@@ -147,7 +148,50 @@ function renderMap() {
       // Fit bounds to show the whole route
       map.fitBounds(L.latLngBounds(latlngs), { padding: [50, 50] });
     }
+
+    // Add Points of Interest (POIs) to the map
+    const categoryColors = {
+      hotels: '#3b82f6',
+      restaurants: '#ef4444',
+      museums: '#10b981',
+      bars: '#f59e0b',
+      shops: '#8b5cf6',
+      others: '#6b7280'
+    };
+
+    pointsOfInterest.forEach(poi => {
+      L.circleMarker(poi.coords, {
+        radius: 6,
+        fillColor: categoryColors[poi.category] || '#6b7280',
+        color: '#fff',
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.9
+      }).addTo(map).bindPopup(`
+        <div style="font-family: var(--font-sans);">
+          <div style="font-weight: 700; margin-bottom: 2px;">${poi.name}</div>
+          <div style="font-size: 0.75rem; color: #666; text-transform: uppercase; margin-bottom: 4px;">${poi.category}</div>
+          <div style="font-size: 0.85rem;">${poi.description}</div>
+        </div>
+      `);
+    });
   }, 100);
+}
+
+function renderSuggestionsList() {
+  const container = document.getElementById('suggestions-list');
+  if (!container) return;
+
+  container.innerHTML = pointsOfInterest.map(poi => `
+    <div class="suggestion-card">
+      <div class="suggestion-header">
+        <span class="poi-tag tag-${poi.category}">${poi.category}</span>
+        <span class="interest-badge">#${poi.tag}</span>
+      </div>
+      <div class="suggestion-title">${poi.name}</div>
+      <div class="text-secondary" style="font-size: 0.85rem;">${poi.description}</div>
+    </div>
+  `).join('');
 }
 
 function setupScrollReveal() {
